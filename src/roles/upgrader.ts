@@ -17,7 +17,7 @@ export class UpgraderRole {
             }
         }
         else {
-            const sources = creep.room.find(FIND_SOURCES);
+            const sources = creep.room.find(FIND_SOURCES, { filter: { id: "5bbcabdf9099fc012e6346a9" } });
             if (creep.harvest(sources[0]) === ERR_NOT_IN_RANGE) {
                 creep.moveTo(sources[0], { visualizePathStyle: { stroke: '#ffaa00' } });
             }

@@ -1,4 +1,5 @@
 import { RoleConfig } from "./roleConfig";
+import { Role } from "roles/roles";
 
 export class ControllerSetup {
     public Level: number;
@@ -9,16 +10,19 @@ export class ControllerSetup {
         this.Roles = roles;
     }
 
-    public GetNextRole(harvesterCount: number, upgraderCount: number, builderCount: number, workToDo: boolean): Role | undefined {
+    public GetNextRole(harvesterCount: number, upgraderCount: number, builderCount: number, repairerCount: number, workToDo: boolean, repairToDo: boolean): Role | undefined {
         for (const roleConfig of this.Roles) {
-            if (roleConfig.Role === Role.Harvester && roleConfig.Amount < harvesterCount) {
+            if (roleConfig.Role === Role.Harvester && roleConfig.Amount > harvesterCount) {
                 return Role.Harvester;
             }
-            if (roleConfig.Role === Role.Upgrader && roleConfig.Amount < upgraderCount) {
+            if (roleConfig.Role === Role.Upgrader && roleConfig.Amount > upgraderCount) {
                 return Role.Upgrader;
             }
-            if (roleConfig.Role === Role.Builder && roleConfig.Amount < builderCount && workToDo) {
+            if (roleConfig.Role === Role.Builder && roleConfig.Amount > builderCount && workToDo) {
                 return Role.Builder;
+            }
+            if (roleConfig.Role === Role.Repairer && roleConfig.Amount > repairerCount && repairToDo) {
+                return Role.Repairer;
             }
         }
         return;

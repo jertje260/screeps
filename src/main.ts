@@ -3,12 +3,15 @@ import { HarvesterRole } from "roles/harvester";
 import { UpgraderRole } from "roles/upgrader";
 import { Spawning } from "SpawnStrategy/spawning";
 import { ErrorMapper } from "utils/ErrorMapper";
+import { Role } from "roles/roles";
+import { RepairerRole } from "roles/repairer";
+import { Building } from "Building/building";
 
 
 // When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
 // This utility uses source maps to get the line numbers and file names of the original, TS source code
 export const loop = ErrorMapper.wrapLoop(() => {
-
+  console.log(`Game time: ${Game.time}`);
   // Automatically delete memory of missing creeps
   for (const creepName in Memory.creeps) {
     if (!(creepName in Game.creeps)) {
@@ -19,11 +22,14 @@ export const loop = ErrorMapper.wrapLoop(() => {
   for (const spawnKey in Game.spawns) {
     const spawn = Game.spawns[spawnKey];
 
-    const harvesters = _.filter(Game.creeps, (harvester: Creep) => harvester.memory.role === Role.Harvester);
-    const upgraders = _.filter(Game.creeps, (upgrader: Creep) => upgrader.memory.role === Role.Upgrader);
-    const builders = _.filter(Game.creeps, (builder: Creep) => builder.memory.role === Role.Builder);
+    const harvesters = _.filter(Game.creeps, (harvester: Creep) => harvester.memory.role === Role.Harvester && harvester.room == spawn.room);
+    const upgraders = _.filter(Game.creeps, (upgrader: Creep) => upgrader.memory.role === Role.Upgrader && upgrader.room == spawn.room);
+    const builders = _.filter(Game.creeps, (builder: Creep) => builder.memory.role === Role.Builder && builder.room == spawn.room);
+    const repairers = _.filter(Game.creeps, (repairer: Creep) => repairer.memory.role === Role.Repairer && repairer.room == spawn.room);
 
-    Spawning.HandleSpawning(spawn, harvesters, builders, upgraders);
+    Spawning.HandleSpawning(spawn, harvesters, builders, upgraders, repairers);
+
+    Building.BuildDefaultStructures(spawn);
   }
 
   for (const screepName in Game.creeps) {
@@ -36,6 +42,9 @@ export const loop = ErrorMapper.wrapLoop(() => {
     }
     if (currentCreep.memory.role === Role.Builder) {
       BuilderRole.run(currentCreep);
+    }
+    if (currentCreep.memory.role === Role.Repairer) {
+      RepairerRole.run(currentCreep);
     }
   }
 });

@@ -1,3 +1,5 @@
+import { Role } from "roles/roles";
+
 export class RoleConfig {
     public Amount: number;
     public Role: Role;
