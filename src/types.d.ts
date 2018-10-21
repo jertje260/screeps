@@ -10,6 +10,10 @@ interface CreepMemory {
   building: boolean;
 }
 
+interface SpawnMemory {
+  defaultRoads: boolean
+}
+
 interface Memory {
   uuid: number;
   log: any;
