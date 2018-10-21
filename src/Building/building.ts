@@ -17,6 +17,7 @@ export class Building {
                 ];
                 for (const position of positions) {
                     const terrainType = terrain.get(position.x, position.y);
+                    console.log(terrainType);
                     if (terrainType !== TERRAIN_MASK_WALL && terrainType !== TERRAIN_MASK_LAVA) {
                         spawn.room.createConstructionSite(position.x, position.y, STRUCTURE_ROAD);
                     }

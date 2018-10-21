@@ -29,6 +29,9 @@ export class RoleSetup {
             case Role.Repairer:
                 waitForCapacity = true;
                 break;
+            case Role.Collector:
+                waitForCapacity = true;
+                break;
             default:
                 throw new Error("Forgot to implement a role");
         }

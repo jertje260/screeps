@@ -1,5 +1,12 @@
 export class RepairerRole {
     public static run(creep: Creep) {
+        if (creep.ticksToLive !== undefined && creep.ticksToLive < 20) {
+            creep.drop(RESOURCE_ENERGY);
+            if (creep.carry.energy == 0) {
+                creep.suicide();
+            }
+            return;
+        }
         if (creep.memory.working && creep.carry.energy === 0) {
             creep.memory.working = false;
             creep.memory.target = undefined;
@@ -12,7 +19,7 @@ export class RepairerRole {
         }
         if (creep.memory.working) {
             const upgradeTarget = creep.room.find(FIND_STRUCTURES, { filter: { id: creep.memory.target } });
-            if (upgradeTarget.length > 0) {
+            if (upgradeTarget.length > 0 && upgradeTarget[0].hits !== upgradeTarget[0].hitsMax) {
                 if (creep.repair(upgradeTarget[0]) === ERR_NOT_IN_RANGE) {
                     creep.moveTo(upgradeTarget[0], { visualizePathStyle: { stroke: '#ffffff' } });
                 }

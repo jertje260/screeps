@@ -6,13 +6,13 @@ import { Role } from "roles/roles";
 
 export class SpawnConfig {
 
-    public static GetNextScreep(controllerLevel: number, harvesters = 0, upgraders = 0, builders = 0, repairers = 0, workToDo = false, repairToDo = false): Role | undefined {
+    public static GetNextScreep(controllerLevel: number, harvesters = 0, upgraders = 0, builders = 0, repairers = 0, collectors = 0, workToDo = false, repairToDo = false, energyOut = false): Role | undefined {
         const controllerSetup = this.ControllerConfig.find((setup) => setup.Level === controllerLevel);
         if (controllerSetup === undefined) {
             console.log('Controller setup not found');
             return;
         }
-        return controllerSetup.GetNextRole(harvesters, upgraders, builders, repairers, workToDo, repairToDo);
+        return controllerSetup.GetNextRole(harvesters, upgraders, builders, repairers, collectors, workToDo, repairToDo, energyOut);
     }
 
     public static GetBodyParts(role: Role, energyAvailable: number, energyCapacityAvailable: number, harvesters = 0, upgraders = 0, builders = 0, repairers = 0): BodyPartConstant[] | undefined {
@@ -65,24 +65,36 @@ export class SpawnConfig {
             new PartSetup(500, [WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE]),
             new PartSetup(550, [WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE]),
         ]),
+        new RoleSetup(Role.Collector, [
+            new PartSetup(100, [CARRY, MOVE]),
+            new PartSetup(150, [CARRY, MOVE, MOVE]),
+            new PartSetup(200, [CARRY, CARRY, MOVE, MOVE]),
+            new PartSetup(250, [CARRY, CARRY, CARRY, MOVE, MOVE]),
+            new PartSetup(300, [CARRY, CARRY, CARRY, MOVE, MOVE, MOVE]),
+            new PartSetup(350, [CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE]),
+            new PartSetup(400, [CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE]),
+        ]),
     ]
 
     private static ControllerConfig = [
         new ControllerSetup(1, [
             new RoleConfig(1, Role.Harvester),
-            new RoleConfig(2, Role.Upgrader)
+            new RoleConfig(2, Role.Upgrader),
+            new RoleConfig(1, Role.Collector)
         ]),
         new ControllerSetup(2, [
             new RoleConfig(2, Role.Harvester),
             new RoleConfig(3, Role.Upgrader),
             new RoleConfig(2, Role.Builder),
-            new RoleConfig(3, Role.Repairer)
+            new RoleConfig(3, Role.Repairer),
+            new RoleConfig(1, Role.Collector)
         ]),
         new ControllerSetup(3, [
             new RoleConfig(2, Role.Harvester),
             new RoleConfig(3, Role.Upgrader),
             new RoleConfig(2, Role.Builder),
-            new RoleConfig(3, Role.Repairer)
+            new RoleConfig(3, Role.Repairer),
+            new RoleConfig(1, Role.Collector)
         ])
     ];
 }

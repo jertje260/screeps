@@ -6,6 +6,7 @@ import { ErrorMapper } from "utils/ErrorMapper";
 import { Role } from "roles/roles";
 import { RepairerRole } from "roles/repairer";
 import { Building } from "Building/building";
+import { CollectorRole } from "roles/collecter";
 
 
 // When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
@@ -26,8 +27,9 @@ export const loop = ErrorMapper.wrapLoop(() => {
     const upgraders = _.filter(Game.creeps, (upgrader: Creep) => upgrader.memory.role === Role.Upgrader && upgrader.room == spawn.room);
     const builders = _.filter(Game.creeps, (builder: Creep) => builder.memory.role === Role.Builder && builder.room == spawn.room);
     const repairers = _.filter(Game.creeps, (repairer: Creep) => repairer.memory.role === Role.Repairer && repairer.room == spawn.room);
+    const collectors = _.filter(Game.creeps, (collector: Creep) => collector.memory.role === Role.Collector && collector.room == spawn.room);
 
-    Spawning.HandleSpawning(spawn, harvesters, builders, upgraders, repairers);
+    Spawning.HandleSpawning(spawn, harvesters, builders, upgraders, repairers, collectors);
 
     Building.BuildDefaultStructures(spawn);
   }
@@ -45,6 +47,9 @@ export const loop = ErrorMapper.wrapLoop(() => {
     }
     if (currentCreep.memory.role === Role.Repairer) {
       RepairerRole.run(currentCreep);
+    }
+    if (currentCreep.memory.role === Role.Collector) {
+      CollectorRole.run(currentCreep);
     }
   }
 });

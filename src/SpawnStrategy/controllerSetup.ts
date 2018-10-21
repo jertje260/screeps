@@ -10,7 +10,7 @@ export class ControllerSetup {
         this.Roles = roles;
     }
 
-    public GetNextRole(harvesterCount: number, upgraderCount: number, builderCount: number, repairerCount: number, workToDo: boolean, repairToDo: boolean): Role | undefined {
+    public GetNextRole(harvesterCount: number, upgraderCount: number, builderCount: number, repairerCount: number, collectorCount: number, workToDo: boolean, repairToDo: boolean, energyOut: boolean): Role | undefined {
         for (const roleConfig of this.Roles) {
             if (roleConfig.Role === Role.Harvester && roleConfig.Amount > harvesterCount) {
                 return Role.Harvester;
@@ -23,6 +23,9 @@ export class ControllerSetup {
             }
             if (roleConfig.Role === Role.Repairer && roleConfig.Amount > repairerCount && repairToDo) {
                 return Role.Repairer;
+            }
+            if (roleConfig.Role === Role.Collector && roleConfig.Amount > collectorCount && energyOut) {
+                return Role.Collector;
             }
         }
         return;

@@ -1,7 +1,13 @@
 export class UpgraderRole {
 
     public static run(creep: Creep): void {
-
+        if (creep.ticksToLive !== undefined && creep.ticksToLive < 20) {
+            creep.drop(RESOURCE_ENERGY);
+            if (creep.carry.energy == 0) {
+                creep.suicide();
+            }
+            return;
+        }
         if (creep.memory.working && creep.carry.energy === 0) {
             creep.memory.working = false;
             creep.say('🔄 harvest');

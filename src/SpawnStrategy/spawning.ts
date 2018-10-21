@@ -1,7 +1,7 @@
 import { SpawnConfig } from "./spawnConfig";
 
 export class Spawning {
-    public static HandleSpawning(spawn: StructureSpawn, harvesters: Creep[], builders: Creep[], upgraders: Creep[], repairers: Creep[]) {
+    public static HandleSpawning(spawn: StructureSpawn, harvesters: Creep[], builders: Creep[], upgraders: Creep[], repairers: Creep[], collectors: Creep[]) {
         if (spawn.spawning) {
             const spawningCreep = Game.creeps[spawn.spawning.name];
             spawn.room.visual.text(
@@ -14,10 +14,11 @@ export class Spawning {
             const hasRepairs = _.filter(spawn.room.find(FIND_STRUCTURES), (structure: AnyStructure) =>
                 structure.hits < structure.hitsMax
             ).length > 0;
+            const hasEnergyOut = spawn.room.find(FIND_DROPPED_RESOURCES).length > 0;
             if (spawn.room.controller === undefined) {
                 return;
             }
-            const nextRole = SpawnConfig.GetNextScreep(spawn.room.controller.level, harvesters.length, upgraders.length, builders.length, repairers.length, hasConstructionSites, hasRepairs);
+            const nextRole = SpawnConfig.GetNextScreep(spawn.room.controller.level, harvesters.length, upgraders.length, builders.length, repairers.length, collectors.length, hasConstructionSites, hasRepairs, hasEnergyOut);
 
             if (nextRole !== undefined) {
                 const bodyParts = SpawnConfig.GetBodyParts(nextRole, spawn.room.energyAvailable, spawn.room.energyCapacityAvailable, harvesters.length, upgraders.length, builders.length, repairers.length);

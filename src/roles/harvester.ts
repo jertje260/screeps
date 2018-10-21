@@ -1,6 +1,13 @@
 export class HarvesterRole {
 
     public static run(creep: Creep): void {
+        if (creep.ticksToLive !== undefined && creep.ticksToLive < 20) {
+            creep.drop(RESOURCE_ENERGY);
+            if (creep.carry.energy == 0) {
+                creep.suicide();
+            }
+            return;
+        }
         if (creep.carry.energy < creep.carryCapacity) {
             const sources = creep.room.find(FIND_SOURCES);
             if (creep.harvest(sources[1]) === ERR_NOT_IN_RANGE) {
