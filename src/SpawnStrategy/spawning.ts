@@ -11,9 +11,9 @@ export class Spawning {
                 { align: 'left', opacity: 0.8 });
         } else {
             const hasConstructionSites = spawn.room.find(FIND_CONSTRUCTION_SITES).length > 0;
-            const hasRepairs = _.filter(spawn.room.find(FIND_STRUCTURES), (structure: AnyStructure) => {
-                structure.hits < structure.hitsMax && (structure.structureType == STRUCTURE_ROAD || structure.structureType == STRUCTURE_WALL || structure.structureType == STRUCTURE_RAMPART)
-            }).length > 0;
+            const hasRepairs = _.filter(spawn.room.find(FIND_STRUCTURES), (structure: AnyStructure) =>
+                structure.hits < structure.hitsMax && (structure.structureType == STRUCTURE_WALL || structure.structureType == STRUCTURE_RAMPART)
+            ).length > 0;
             if (spawn.room.controller === undefined) {
                 return;
             }
