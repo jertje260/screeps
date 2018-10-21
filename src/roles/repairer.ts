@@ -41,7 +41,7 @@ export class RepairerRole {
 
     private static findSite(creep: Creep): void {
 
-        let upgradables = _.filter(creep.room.find(FIND_STRUCTURES), (structure: AnyStructure) => structure.hits != structure.hitsMax);
+        let upgradables = _.filter(creep.room.find(FIND_STRUCTURES), (structure: AnyStructure) => structure.hits !== structure.hitsMax);
         if (upgradables.length > 0) {
             upgradables = this.SortUpgradables(upgradables);
             console.log(upgradables[0].structureType);
