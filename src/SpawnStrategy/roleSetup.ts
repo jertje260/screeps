@@ -20,7 +20,7 @@ export class RoleSetup {
                 waitForCapacity = true;
                 break;
             case Role.Harvester:
-                if (harvesters > 0) {
+                if (harvesters > 1) {
                     waitForCapacity = true;
                 } else {
                     waitForCapacity = false;
