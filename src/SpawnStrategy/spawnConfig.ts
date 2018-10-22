@@ -95,6 +95,41 @@ export class SpawnConfig {
             new RoleConfig(2, Role.Builder),
             new RoleConfig(3, Role.Repairer),
             new RoleConfig(1, Role.Collector)
+        ]),
+        new ControllerSetup(4, [
+            new RoleConfig(2, Role.Harvester),
+            new RoleConfig(3, Role.Upgrader),
+            new RoleConfig(2, Role.Builder),
+            new RoleConfig(3, Role.Repairer),
+            new RoleConfig(1, Role.Collector)
+        ]),
+        new ControllerSetup(5, [
+            new RoleConfig(2, Role.Harvester),
+            new RoleConfig(3, Role.Upgrader),
+            new RoleConfig(2, Role.Builder),
+            new RoleConfig(3, Role.Repairer),
+            new RoleConfig(1, Role.Collector)
+        ]),
+        new ControllerSetup(6, [
+            new RoleConfig(2, Role.Harvester),
+            new RoleConfig(3, Role.Upgrader),
+            new RoleConfig(2, Role.Builder),
+            new RoleConfig(3, Role.Repairer),
+            new RoleConfig(1, Role.Collector)
+        ]),
+        new ControllerSetup(7, [
+            new RoleConfig(2, Role.Harvester),
+            new RoleConfig(3, Role.Upgrader),
+            new RoleConfig(2, Role.Builder),
+            new RoleConfig(3, Role.Repairer),
+            new RoleConfig(1, Role.Collector)
+        ]),
+        new ControllerSetup(8, [
+            new RoleConfig(2, Role.Harvester),
+            new RoleConfig(3, Role.Upgrader),
+            new RoleConfig(2, Role.Builder),
+            new RoleConfig(3, Role.Repairer),
+            new RoleConfig(1, Role.Collector)
         ])
     ];
 }
