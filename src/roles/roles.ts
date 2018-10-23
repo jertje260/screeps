@@ -3,5 +3,6 @@ export enum Role {
     Builder = "BUILDER",
     Upgrader = "UPGRADER",
     Repairer = "REPAIRER",
-    Collector = "COLLECTOR"
+    Collector = "COLLECTOR",
+    Filler = "FILLER"
 }

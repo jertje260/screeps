@@ -8,14 +8,24 @@ export class RepairerRole {
             return;
         }
         if (creep.memory.working && creep.carry.energy === 0) {
-            creep.memory.working = false;
-            creep.memory.target = undefined;
-            creep.say('🔄 harvest');
+            creep.say('finding resources');
+            const nearestContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+                filter:
+                    (structure: Structure<STRUCTURE_CONTAINER>) => structure.structureType == STRUCTURE_CONTAINER
+            }
+            );
+            if (nearestContainer === null) {
+                console.log('no container found');
+            } else {
+                creep.memory.source = nearestContainer.id
+                creep.memory.working = false;
+                creep.memory.target = undefined;
+            }
         }
         if (!creep.memory.working && creep.carry.energy === creep.carryCapacity) {
             creep.memory.working = true;
             this.findSite(creep);
-            creep.say('🚧 build');
+            creep.say('🚧 repairing');
         }
         if (creep.memory.working) {
             const upgradeTarget = creep.room.find(FIND_STRUCTURES, { filter: { id: creep.memory.target } });
@@ -27,9 +37,9 @@ export class RepairerRole {
                 this.findSite(creep);
             }
         } else {
-            const sources = creep.room.find(FIND_SOURCES);
-            if (creep.harvest(sources[1]) === ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[1], { visualizePathStyle: { stroke: '#ffaa00' } });
+            const sources = creep.room.find(FIND_STRUCTURES, { filter: { id: creep.memory.source } });
+            if (creep.withdraw(sources[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+                creep.moveTo(sources[0], { visualizePathStyle: { stroke: '#ffaa00' } });
             }
         }
     }

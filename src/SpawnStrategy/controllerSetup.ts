@@ -10,10 +10,13 @@ export class ControllerSetup {
         this.Roles = roles;
     }
 
-    public GetNextRole(harvesterCount: number, upgraderCount: number, builderCount: number, repairerCount: number, collectorCount: number, workToDo: boolean, repairToDo: boolean, energyOut: boolean): Role | undefined {
+    public GetNextRole(harvesterCount: number, upgraderCount: number, builderCount: number, repairerCount: number, collectorCount: number, fillerCount: number, workToDo: boolean, repairToDo: boolean, energyOut: boolean, sourceCount: number): Role | undefined {
         for (const roleConfig of this.Roles) {
             if (roleConfig.Role === Role.Harvester && roleConfig.Amount > harvesterCount) {
                 return Role.Harvester;
+            }
+            if (roleConfig.Role === Role.Filler && fillerCount < sourceCount) {
+                return Role.Filler;
             }
             if (roleConfig.Role === Role.Upgrader && roleConfig.Amount > upgraderCount) {
                 return Role.Upgrader;

@@ -8,6 +8,7 @@ interface CreepMemory {
   working: boolean;
   target?: string;
   building: boolean;
+  source?: string;
 }
 
 interface SpawnMemory {

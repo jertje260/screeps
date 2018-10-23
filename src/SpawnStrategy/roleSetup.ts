@@ -10,7 +10,7 @@ export class RoleSetup {
         this.Setups = setups;
     }
 
-    public GetPartSetup(energyAvailable: number, energyCapacityAvailable: number, harvesters: number, upgraders: number, builders: number, repairers: number): BodyPartConstant[] | undefined {
+    public GetPartSetup(energyAvailable: number, energyCapacityAvailable: number, harvesters: number): BodyPartConstant[] | undefined {
         let waitForCapacity = false;
         switch (this.Role) {
             case Role.Upgrader:
@@ -32,8 +32,11 @@ export class RoleSetup {
             case Role.Collector:
                 waitForCapacity = true;
                 break;
+            case Role.Filler:
+                waitForCapacity = true;
+                break;
             default:
-                throw new Error("Forgot to implement a role");
+                return this.unreachableRole(this.Role);
         }
 
         for (let i = this.Setups.length - 1; i > 0; i--) {
@@ -46,4 +49,11 @@ export class RoleSetup {
         }
         return;
     }
+
+    private unreachableRole(x: never): never;
+
+    private unreachableRole(x: Role) {
+        throw new Error("Didn't export to get role " + x);
+    }
+
 }
