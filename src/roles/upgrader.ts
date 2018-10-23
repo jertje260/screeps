@@ -1,3 +1,5 @@
+import { Search } from "findStrategies/search";
+
 export class UpgraderRole {
 
     public static run(creep: Creep): void {
@@ -10,17 +12,7 @@ export class UpgraderRole {
         }
         if (!creep.memory.working && creep.carry.energy === 0) {
             creep.say('finding resources');
-            const nearestContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-                filter:
-                    (structure: Structure<STRUCTURE_CONTAINER>) => structure.structureType == STRUCTURE_CONTAINER
-            }
-            );
-            if (nearestContainer === null) {
-                console.log('no container found');
-            } else {
-                creep.memory.source = nearestContainer.id
-                creep.memory.working = true;
-            }
+            Search.SetNearestSource(creep, true);
         }
         if (creep.memory.working && creep.carry.energy === creep.carryCapacity) {
             creep.memory.working = false;

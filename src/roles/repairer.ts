@@ -1,3 +1,5 @@
+import { Search } from "findStrategies/search";
+
 export class RepairerRole {
     public static run(creep: Creep) {
         if (creep.ticksToLive !== undefined && creep.ticksToLive < 20) {
@@ -7,27 +9,17 @@ export class RepairerRole {
             }
             return;
         }
-        if (creep.memory.working && creep.carry.energy === 0) {
+        if (!creep.memory.working && creep.carry.energy === 0) {
             creep.say('finding resources');
-            const nearestContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-                filter:
-                    (structure: Structure<STRUCTURE_CONTAINER>) => structure.structureType == STRUCTURE_CONTAINER
-            }
-            );
-            if (nearestContainer === null) {
-                console.log('no container found');
-            } else {
-                creep.memory.source = nearestContainer.id
-                creep.memory.working = false;
-                creep.memory.target = undefined;
-            }
+            Search.SetNearestSource(creep, true);
+            creep.memory.target = undefined;
         }
-        if (!creep.memory.working && creep.carry.energy === creep.carryCapacity) {
-            creep.memory.working = true;
+        if (creep.memory.working && creep.carry.energy === creep.carryCapacity) {
+            creep.memory.working = false;
             this.findSite(creep);
             creep.say('🚧 repairing');
         }
-        if (creep.memory.working) {
+        if (!creep.memory.working) {
             const upgradeTarget = creep.room.find(FIND_STRUCTURES, { filter: { id: creep.memory.target } });
             if (upgradeTarget.length > 0 && upgradeTarget[0].hits !== upgradeTarget[0].hitsMax) {
                 if (creep.repair(upgradeTarget[0]) === ERR_NOT_IN_RANGE) {

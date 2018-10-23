@@ -40,7 +40,7 @@ export class Spawning {
                         let uncoveredSource = _.filter(sources, (s: Source) => { return !fillers.find((creep: Creep) => { return creep.memory.source == s.id }) })[0];
                         source = uncoveredSource.id;
                     }
-                    if (spawn.spawnCreep(bodyParts, name, { memory: { role: nextRole, room: spawn.room.name, working: false, building: false, source: source } }) !== ERR_NOT_ENOUGH_ENERGY) {
+                    if (spawn.spawnCreep(bodyParts, name, { memory: { role: nextRole, room: spawn.room.name, working: false, source: source } }) !== ERR_NOT_ENOUGH_ENERGY) {
                         console.log(`Spawning ${name}`);
                     };
                 }

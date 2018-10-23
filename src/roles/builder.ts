@@ -1,3 +1,5 @@
+import { Search } from "findStrategies/search";
+
 export class BuilderRole {
 
     public static run(creep: Creep): void {
@@ -8,30 +10,33 @@ export class BuilderRole {
             }
             return;
         }
-        if (creep.memory.working && creep.carry.energy === 0) {
-            creep.memory.working = false;
-            creep.say('🔄 harvest');
+        if (!creep.memory.working && creep.carry.energy === 0) {
+            Search.SetNearestSource(creep, true);
+            creep.say('get energy');
         }
-        if (!creep.memory.working && creep.carry.energy === creep.carryCapacity) {
-            creep.memory.working = true;
+        if (creep.memory.working && creep.carry.energy === creep.carryCapacity) {
+            creep.memory.working = false;
             this.findSite(creep);
             creep.say('🚧 build');
         }
 
-        if (creep.memory.working) {
+        if (!creep.memory.working) {
+            console.log('working');
             const buildTargets = creep.room.find(FIND_MY_CONSTRUCTION_SITES, { filter: { id: creep.memory.target } });
             if (buildTargets.length > 0) {
                 if (creep.build(buildTargets[0]) === ERR_NOT_IN_RANGE) {
                     creep.moveTo(buildTargets[0], { visualizePathStyle: { stroke: '#ffffff' } });
                 }
             } else {
+                console.log('finding site');
                 this.findSite(creep);
             }
         }
         else {
-            const sources = creep.room.find(FIND_SOURCES);
-            if (creep.harvest(sources[1]) === ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[1], { visualizePathStyle: { stroke: '#ffaa00' } });
+            console.log('going to source');
+            const sources = creep.room.find(FIND_STRUCTURES, { filter: { id: creep.memory.source } });
+            if (creep.withdraw(sources[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+                creep.moveTo(sources[0], { visualizePathStyle: { stroke: '#ffaa00' } });
             }
         }
     }
@@ -41,7 +46,6 @@ export class BuilderRole {
         if (targets.length > 0) {
             targets = this.SortSites(targets);
             console.log(targets[0].structureType);
-            creep.memory.building = true;
             creep.memory.target = targets[0].id;
             return;
         }

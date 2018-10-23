@@ -1,3 +1,5 @@
+import { Search } from "findStrategies/search";
+
 export class HarvesterRole {
 
     public static run(creep: Creep): void {
@@ -10,15 +12,7 @@ export class HarvesterRole {
         }
 
         if (!creep.memory.working && creep.carry.energy === 0) {
-            const nearestContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-                filter: { structureType: STRUCTURE_CONTAINER }
-            });
-            if (nearestContainer === null) {
-                console.log('no container found');
-            } else {
-                creep.memory.source = nearestContainer.id
-                creep.memory.working = true;
-            }
+            Search.SetNearestSource(creep, true);
         }
         if (creep.memory.working && creep.carry.energy === creep.carryCapacity) {
             this.findTarget(creep);
@@ -67,8 +61,6 @@ export class HarvesterRole {
         });
         if (targets.length > 0) {
             creep.memory.target = targets[0].id;
-        } else {
-            creep.say("can't find target");
         }
     }
 };
