@@ -5,7 +5,7 @@ export class BuilderRole {
     public static run(creep: Creep): void {
         if (creep.ticksToLive !== undefined && creep.ticksToLive < 20) {
             creep.drop(RESOURCE_ENERGY);
-            if (creep.carry.energy == 0) {
+            if (creep.carry.energy === 0) {
                 creep.suicide();
             }
             return;

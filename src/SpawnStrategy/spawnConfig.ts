@@ -96,7 +96,7 @@ export class SpawnConfig {
         new ControllerSetup(2, [
             new RoleConfig(2, Role.Harvester),
             new RoleConfig(2, Role.Filler),
-            new RoleConfig(1, Role.Upgrader),
+            new RoleConfig(2, Role.Upgrader),
             new RoleConfig(2, Role.Builder),
             new RoleConfig(2, Role.Repairer),
             new RoleConfig(1, Role.Collector)
@@ -104,7 +104,7 @@ export class SpawnConfig {
         new ControllerSetup(3, [
             new RoleConfig(2, Role.Harvester),
             new RoleConfig(2, Role.Filler),
-            new RoleConfig(1, Role.Upgrader),
+            new RoleConfig(2, Role.Upgrader),
             new RoleConfig(2, Role.Builder),
             new RoleConfig(2, Role.Repairer),
             new RoleConfig(1, Role.Collector)
@@ -112,7 +112,7 @@ export class SpawnConfig {
         new ControllerSetup(4, [
             new RoleConfig(2, Role.Harvester),
             new RoleConfig(2, Role.Filler),
-            new RoleConfig(1, Role.Upgrader),
+            new RoleConfig(2, Role.Upgrader),
             new RoleConfig(2, Role.Builder),
             new RoleConfig(2, Role.Repairer),
             new RoleConfig(1, Role.Collector)
@@ -120,7 +120,7 @@ export class SpawnConfig {
         new ControllerSetup(5, [
             new RoleConfig(2, Role.Harvester),
             new RoleConfig(2, Role.Filler),
-            new RoleConfig(1, Role.Upgrader),
+            new RoleConfig(2, Role.Upgrader),
             new RoleConfig(2, Role.Builder),
             new RoleConfig(2, Role.Repairer),
             new RoleConfig(1, Role.Collector)
@@ -128,7 +128,7 @@ export class SpawnConfig {
         new ControllerSetup(6, [
             new RoleConfig(2, Role.Harvester),
             new RoleConfig(2, Role.Filler),
-            new RoleConfig(1, Role.Upgrader),
+            new RoleConfig(2, Role.Upgrader),
             new RoleConfig(2, Role.Builder),
             new RoleConfig(2, Role.Repairer),
             new RoleConfig(1, Role.Collector)
@@ -136,7 +136,7 @@ export class SpawnConfig {
         new ControllerSetup(7, [
             new RoleConfig(2, Role.Harvester),
             new RoleConfig(2, Role.Filler),
-            new RoleConfig(1, Role.Upgrader),
+            new RoleConfig(2, Role.Upgrader),
             new RoleConfig(2, Role.Builder),
             new RoleConfig(2, Role.Repairer),
             new RoleConfig(1, Role.Collector)
@@ -144,7 +144,7 @@ export class SpawnConfig {
         new ControllerSetup(8, [
             new RoleConfig(2, Role.Harvester),
             new RoleConfig(2, Role.Filler),
-            new RoleConfig(1, Role.Upgrader),
+            new RoleConfig(2, Role.Upgrader),
             new RoleConfig(2, Role.Builder),
             new RoleConfig(2, Role.Repairer),
             new RoleConfig(1, Role.Collector)

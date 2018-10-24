@@ -8,6 +8,7 @@ import { RepairerRole } from "roles/repairer";
 import { Building } from "Building/building";
 import { CollectorRole } from "roles/collecter";
 import { FillerRole } from "roles/filler";
+import { TowerRole } from "roles/tower";
 
 
 // When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
@@ -27,7 +28,17 @@ export const loop = ErrorMapper.wrapLoop(() => {
     Spawning.HandleSpawning(spawn);
 
     Building.BuildDefaultStructures(spawn);
+
+    const towers = spawn.room.find(FIND_MY_STRUCTURES, { filter: (tower: Structure<STRUCTURE_TOWER>) => tower.structureType === STRUCTURE_TOWER });
+
+    towers.forEach(tower => {
+      if (tower.structureType === STRUCTURE_TOWER) {
+        TowerRole.run(tower);
+      }
+    });
   }
+
+
 
   for (const screepName in Game.creeps) {
     const currentCreep = Game.creeps[screepName];
